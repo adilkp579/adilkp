@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Ishath Educational Institution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --card-bg: #1a1a1a;
+            --border-color: #2a2a2a;
+            --accent-color: #3498db;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #aaaaaa;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        .login-box {
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            padding: 50px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-logo h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .login-logo p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        .btn-success {
+            background: var(--success-color);
+        }
+        
+        .btn-warning {
+            background: var(--warning-color);
+        }
+        
+        .btn-danger {
+            background: var(--danger-color);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* Admin Panel Styles */
+        .admin-container {
+            display: none;
+            width: 100%;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: var(--secondary-bg);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid var(--border-color);
+            padding: 30px 0;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 0 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .menu-item {
+            margin-bottom: 5px;
+        }
+        
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+        
+        .menu-link:hover, .menu-link.active {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border-left-color: var(--accent-color);
+        }
+        
+        .menu-link i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            padding: 30px;
+            width: calc(100% - 280px);
+            min-height: 100vh;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .logout-btn:hover {
+            background: var(--danger-color);
+            border-color: var(--danger-color);
+            color: white;
+        }
+        
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+        }
+        
+        .dashboard-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #9b59b6, var(--danger-color));
+        }
+        
+        .dashboard-card:nth-child(3)::before {
+            background: linear-gradient(90deg, var(--warning-color), var(--accent-color));
+        }
+        
+        .dashboard-card:nth-child(4)::before {
+            background: linear-gradient(90deg, #1abc9c, #9b59b6);
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        
+        .content-section {
+            background: var(--secondary-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .section-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+        
+        .editable {
+            border: 1px dashed transparent;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: text;
+        }
+        
+        .editable:hover {
+            border-color: var(--accent-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .editable:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px);
+            color: var(--text-primary);
+            border-color: var(--accent-color);
+        }
+        
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .action-text {
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        /* Table Styles */
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .data-table th {
+            background: var(--border-color);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .data-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .edit-form {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        .edit-form h4 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: var(--danger-color);
+        }
+        
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 250px;
+            }
+            
+            .main-content {
+                margin-left: 250px;
+                width: calc(100% - 250px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <div class="login-logo">
+                <h1>Ishath Admin</h1>
+                <p>Educational Institution Management System</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-container" id="adminPanel">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Ishath Admin</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a class="menu-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" data-page="teachers">
+                        <i class="fas fa-chalkboard-teacher"></i> Teaching Staff
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" data-page="documents">
+                        <i class="fas fa-file-certificate"></i> CBSE Documents
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" data-page="recruitment">
+                        <i class="fas fa-user-tie"></i> Recruitment
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" data-page="annual-report">
+                        <i class="fas fa-chart-bar"></i> Annual Report
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" data-page="curriculum">
+                        <i class="fas fa-book-open"></i> Curriculum
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" data-page="website">
+                        <i class="fas fa-globe"></i> Website Pages
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="user-menu">
+                    <div class="user-info">
+                        <div class="user-avatar">A</div>
+                        <span>Admin User</span>
+                    </div>
+                    <button class="btn logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div id="dashboardContent" class="page-content">
+                <div class="dashboard-cards">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="card-title">Teaching Staff</div>
+                        <div class="card-value editable" contenteditable="true">52</div>
+                        <div class="card-description editable" contenteditable="true">Qualified educators</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="card-title">Students</div>
+                        <div class="card-value editable" contenteditable="true">1,602</div>
+                        <div class="card-description editable" contenteditable="true">Across all grades</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="card-title">Documents</div>
+                        <div class="card-value editable" contenteditable="true">7</div>
+                        <div class="card-description editable" contenteditable="true">CBSE mandatory files</div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="card-title">Vacancies</div>
+                        <div class="card-value editable" contenteditable="true">5</div>
+                        <div class="card-description editable" contenteditable="true">Teaching positions</div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">
+                        Quick Actions
+                        <div class="section-actions">
+                            <button class="btn btn-sm btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save All Changes
+                            </button>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="teachers.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="action-text">View Teaching Staff</div>
+                        </a>
+                        <a href="mandatory.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <div class="action-text">CBSE Documents</div>
+                        </a>
+                        <a href="recruitment.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="action-text">Recruitment</div>
+                        </a>
+                        <a href="annualreport.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="action-text">Annual Report</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">
+                        Recent Activity
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>User</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Updated Teacher List</td>
+                                    <td>Admin</td>
+                                    <td>2 hours ago</td>
+                                    <td><span style="color: var(--success-color)">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Added New Document</td>
+                                    <td>Admin</td>
+                                    <td>5 hours ago</td>
+                                    <td><span style="color: var(--success-color)">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Updated Curriculum</td>
+                                    <td>Admin</td>
+                                    <td>1 day ago</td>
+                                    <td><span style="color: var(--success-color)">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teachers Management Content -->
+            <div id="teachersContent" class="page-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-title">
+                        Teaching Staff Management
+                        <div class="section-actions">
+                            <button class="btn btn-sm" onclick="addNewTeacher()">
+                                <i class="fas fa-plus"></i> Add Teacher
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="edit-form">
+                        <h4>Add/Edit Teacher</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" id="teacherName" placeholder="Enter teacher name">
+                            </div>
+                            <div class="form-group">
+                                <label>Designation</label>
+                                <input type="text" class="form-control" id="teacherDesignation" placeholder="Enter designation">
+                            </div>
+                            <div class="form-group">
+                                <label>Qualification</label>
+                                <input type="text" class="form-control" id="teacherQualification" placeholder="Enter qualifications">
+                            </div>
+                        </div>
+                        <button class="btn" onclick="saveTeacher()">
+                            <i class="fas fa-save"></i> Save Teacher
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Designation</th>
+                                    <th>Qualification</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teachersTable">
+                                <tr>
+                                    <td contenteditable="true" class="editable">MR. SREEKUMAR P M</td>
+                                    <td contenteditable="true" class="editable">PRINCIPAL</td>
+                                    <td contenteditable="true" class="editable">MSc, MEd</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteTeacher(this)">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td contenteditable="true" class="editable">MS. SAKKEENA E K</td>
+                                    <td contenteditable="true" class="editable">Vice Principal</td>
+                                    <td contenteditable="true" class="editable">M.Sc, B.Ed.</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" onclick="deleteTeacher(this)">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Management Sections -->
+            <div id="documentsContent" class="page-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-title">
+                        CBSE Documents Management
+                        <div class="section-actions">
+                            <button class="btn btn-sm btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                    <p class="editable" contenteditable="true">Manage all CBSE mandatory documents, certificates, and compliance materials here.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Document Title</label>
+                            <input type="text" class="form-control editable" value="Certificate of Affiliation" contenteditable="true">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control">
+                                <option>Active</option>
+                                <option>Expired</option>
+                                <option>Pending</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="recruitmentContent" class="page-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-title">
+                        Recruitment Management
+                        <div class="section-actions">
+                            <button class="btn btn-sm btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                    <p class="editable" contenteditable="true">Manage teacher recruitment information and available positions for 2025-26.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Position</label>
+                            <input type="text" class="form-control editable" value="IT Teacher cum System Administrator" contenteditable="true">
+                        </div>
+                        <div class="form-group">
+                            <label>Qualification Required</label>
+                            <input type="text" class="form-control editable" value="B.Tech in Computer / MCA / or Equivalent" contenteditable="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="annualReportContent" class="page-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-title">
+                        Annual Report Management
+                        <div class="section-actions">
+                            <button class="btn btn-sm btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                    <p class="editable" contenteditable="true">Manage comprehensive annual report highlighting achievements and performance.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Academic Year</label>
+                            <input type="text" class="form-control editable" value="2024-25" contenteditable="true">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Students</label>
+                            <input type="text" class="form-control editable" value="1,602" contenteditable="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="curriculumContent" class="page-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-title">
+                        Curriculum Management
+                        <div class="section-actions">
+                            <button class="btn btn-sm btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                    <p class="editable" contenteditable="true">Manage academic curriculum, programs and learning methodologies.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Curriculum Title</label>
+                            <input type="text" class="form-control editable" value="Science & Mathematics" contenteditable="true">
+                        </div>
+                        <div class="form-group">
+                            <label>Grade Level</label>
+                            <input type="text" class="form-control editable" value="All Grades" contenteditable="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="websiteContent" class="page-content" style="display: none;">
+                <div class="content-section">
+                    <div class="section-title">
+                        Website Pages Management
+                        <div class="section-actions">
+                            <button class="btn btn-sm btn-success" onclick="saveChanges()">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <a href="teachers.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="action-text">Teaching Staff Page</div>
+                        </a>
+                        <a href="mandatory.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <div class="action-text">CBSE Documents Page</div>
+                        </a>
+                        <a href="recruitment.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="action-text">Recruitment Page</div>
+                        </a>
+                        <a href="annualreport.html" class="action-btn" target="_blank">
+                            <div class="action-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="action-text">Annual Report Page</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Changes saved successfully!
+    </div>
+
+    <script>
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple authentication
+            if (username === 'admin' && password === 'password') {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'flex';
+                showNotification('Login successful!');
+            } else {
+                showNotification('Invalid credentials! Use admin/password', true);
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('loginForm').reset();
+            showNotification('Logged out successfully');
+        });
+
+        // Navigation functionality
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active menu item
+                document.querySelectorAll('.menu-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get page to show
+                const page = this.getAttribute('data-page');
+                const pageTitle = this.textContent.trim();
+                document.getElementById('pageTitle').textContent = pageTitle;
+                
+                // Hide all page contents
+                document.querySelectorAll('.page-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+                
+                // Show selected page content
+                document.getElementById(page + 'Content').style.display = 'block';
+            });
+        });
+
+        // Teacher Management Functions
+        function addNewTeacher() {
+            const table = document.getElementById('teachersTable');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td contenteditable="true" class="editable">New Teacher</td>
+                <td contenteditable="true" class="editable">Designation</td>
+                <td contenteditable="true" class="editable">Qualifications</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" onclick="deleteTeacher(this)">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </td>
+            `;
+            table.appendChild(newRow);
+            showNotification('New teacher row added');
+        }
+
+        function deleteTeacher(button) {
+            const row = button.closest('tr');
+            row.remove();
+            showNotification('Teacher deleted');
+        }
+
+        function saveTeacher() {
+            const name = document.getElementById('teacherName').value;
+            const designation = document.getElementById('teacherDesignation').value;
+            const qualification = document.getElementById('teacherQualification').value;
+            
+            if (name && designation && qualification) {
+                const table = document.getElementById('teachersTable');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td contenteditable="true" class="editable">${name}</td>
+                    <td contenteditable="true" class="editable">${designation}</td>
+                    <td contenteditable="true" class="editable">${qualification}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="deleteTeacher(this)">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </td>
+                `;
+                table.appendChild(newRow);
+                
+                // Clear form
+                document.getElementById('teacherName').value = '';
+                document.getElementById('teacherDesignation').value = '';
+                document.getElementById('teacherQualification').value = '';
+                
+                showNotification('Teacher saved successfully');
+            } else {
+                showNotification('Please fill all fields', true);
+            }
+        }
+
+        // Save changes function
+        function saveChanges() {
+            showNotification('All changes saved successfully!');
+        }
+
+        // Notification function
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.toggle('error', isError);
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Auto-save functionality
+        let autoSaveTimeout;
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('editable')) {
+                clearTimeout(autoSaveTimeout);
+                autoSaveTimeout = setTimeout(() => {
+                    showNotification('Changes auto-saved');
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admissions - Ishath Public School</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Modern Navbar Styling */
+    .navbar {
+      background: #000000 !important;
+      padding: 12px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #333;
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link {
+      color: #e0e0e0 !important;
+      font-weight: 500;
+      padding: 8px 20px !important;
+      margin: 0 4px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: #ffffff !important;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      color: #ffffff !important;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Main Content */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      padding-top: 80px;
+    }
+
+    .admission-header {
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .admission-header h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin: 60px 0 40px;
+      color: #222;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+
+    /* Admission Form */
+    .admission-form {
+      background: #000000;
+      color: white;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      margin: 40px auto;
+      max-width: 800px;
+    }
+
+    .form-label {
+      color: #e0e0e0;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: white;
+      padding: 12px 15px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      background: #1a1a1a;
+      border-color: #667eea;
+      color: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-select {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: white;
+      padding: 12px 15px;
+      border-radius: 10px;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-submit:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    /* Error and Success Messages */
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.875rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .success-message {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    /* Fees Structure - White Background */
+    .fees-section {
+      padding: 60px 0;
+      background: #ffffff;
+    }
+
+    .fees-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .fees-table {
+      background: #000000;
+      color: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid #333;
+    }
+
+    .fees-table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      font-weight: 600;
+      border: none;
+      font-size: 1.1rem;
+    }
+
+    .fees-table td {
+      padding: 20px;
+      border-color: #333;
+      color: #e0e0e0;
+      font-size: 1rem;
+    }
+
+    .fees-table tr:nth-child(even) {
+      background: #1a1a1a;
+    }
+
+    /* Admin Dashboard */
+    .admin-dashboard {
+      background: #000000;
+      color: white;
+      padding: 50px;
+      border-radius: 20px;
+      margin: 40px auto;
+      max-width: 1000px;
+      display: none;
+    }
+
+    .application-card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-left: 4px solid #667eea;
+    }
+
+    .application-status {
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .status-approved {
+      background: #10b981;
+      color: white;
+    }
+
+    .status-rejected {
+      background: #ef4444;
+      color: white;
+    }
+
+    /* Security Features */
+    .security-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-block;
+      margin: 10px 5px;
+    }
+
+    .loading-spinner {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .admission-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .admission-form {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Modern Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Ishath Public School</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="admission.html">Admissions</a></li>
+          <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admission Header -->
+  <section class="admission-header">
+    <div class="container">
+      <h1>Admissions 2024-25</h1>
+      <p class="lead">Begin your journey towards excellence with Ishath Public School</p>
+      <div class="mt-4">
+        <span class="security-badge">🔒  Form</span>
+        <span class="security-badge">✅ Compliant</span>
+        <span class="security-badge">📧 onfirmation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admission Form -->
+  <section class="container">
+    <h2 class="section-title">Admission Form</h2>
+    <div class="admission-form">
+      <form id="admissionForm" novalidate>
+        <!-- CSRF Token -->
+        <input type="hidden" id="csrfToken" name="csrfToken">
+
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Student's Full Name *</label>
+            <input type="text" class="form-control" name="studentName" required 
+                   pattern="[A-Za-z\s]{2,50}" 
+                   title="Only letters and spaces allowed (2-50 characters)">
+            <div class="error-message" id="studentNameError"></div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="form-label">Date of Birth *</label>
+            <input type="date" class="form-control" name="dob" required 
+                   max="2018-12-31" min="2000-01-01">
+            <div class="error-message" id="dobError"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Grade Applying For *</label>
+            <select class="form-select" name="grade" required>
+              <option value="">Select Grade</option>
+              <option>Grade 1</option>
+              <option>Grade 2</option>
+              <option>Grade 3</option>
+              <option>Grade 4</option>
+              <option>Grade 5</option>
+              <option>Grade 6</option>
+              <option>Grade 7</option>
+              <option>Grade 8</option>
+              <option>Grade 9</option>
+              <option>Grade 10</option>
+              <option>Grade 11</option>
+              <option>Grade 12</option>
+            </select>
+            <div class="error-message" id="gradeError"></div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="form-label">Previous School</label>
+            <input type="text" class="form-control" name="previousSchool" 
+                   pattern="[A-Za-z0-9\s\.\-]{0,100}" 
+                   title="Only letters, numbers, spaces, dots and hyphens allowed">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Parent/Guardian Name *</label>
+          <input type="text" class="form-control" name="parentName" required 
+                 pattern="[A-Za-z\s]{2,50}" 
+                 title="Only letters and spaces allowed (2-50 characters)">
+          <div class="error-message" id="parentNameError"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-control" name="email" required 
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            <div class="error-message" id="emailError"></div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" class="form-control" name="phone" required 
+                   pattern="[0-9]{10}" 
+                   title="10 digit phone number required">
+            <div class="error-message" id="phoneError"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Address *</label>
+          <textarea class="form-control" name="address" rows="3" required 
+                    maxlength="200"></textarea>
+          <div class="error-message" id="addressError"></div>
+        </div>
+
+        <!-- CAPTCHA -->
+        <div class="form-group">
+          <label class="form-label">Security Verification *</label>
+          <div class="d-flex align-items-center gap-3">
+            <div id="captchaText" class="bg-dark p-2 rounded text-center fw-bold fs-5" 
+                 style="min-width: 120px; letter-spacing: 5px;"></div>
+            <input type="text" class="form-control" name="captcha" required 
+                   placeholder="Enter the code above" style="max-width: 200px;">
+          </div>
+          <div class="error-message" id="captchaError"></div>
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Submitting your application securely...</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <h4>✅ Application Submitted Successfully!</h4>
+          <p>Your application has been received and connect our team.</p>
+          <p><strong>Reference ID: <span id="referenceId"></span></strong></p>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Submit Application</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Fees Structure -->
+  <section class="fees-section">
+    <div class="fees-container">
+      <h2 class="section-title">Fee Structure</h2>
+      <div class="fees-table">
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th>Grade</th>
+              <th>Annual Tuition Fee</th>
+              <th>Admission Fee</th>
+              <th>Other Charges</th>
+              <th>Total Annual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Grade 1-5</td>
+              <td>₹45,000</td>
+              <td>₹10,000</td>
+              <td>₹5,000</td>
+              <td>₹60,000</td>
+            </tr>
+            <tr>
+              <td>Grade 6-8</td>
+              <td>₹55,000</td>
+              <td>₹12,000</td>
+              <td>₹6,000</td>
+              <td>₹73,000</td>
+            </tr>
+            <tr>
+              <td>Grade 9-10</td>
+              <td>₹65,000</td>
+              <td>₹15,000</td>
+              <td>₹7,000</td>
+              <td>₹87,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin Dashboard (Hidden by default) -->
+  <section class="container">
+    <div class="admin-dashboard" id="adminDashboard">
+      <h2 class="section-title" style="color: white;">Admin Dashboard</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="application-card">
+            <h5>Alex Johnson</h5>
+            <p>Grade 5 | alex@email.com</p>
+            <span class="application-status status-pending">Pending</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="application-card">
+            <h5>Sarah Williams</h5>
+            <p>Grade 3 | sarah@email.com</p>
+            <span class="application-status status-approved">Approved</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="application-card">
+            <h5>Michael Chen</h5>
+            <p>Grade 7 | michael@email.com</p>
+            <span class="application-status status-rejected">Rejected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Security Implementation - OWASP Top 10
+    class AdmissionSecurity {
+      constructor() {
+        this.applications = JSON.parse(localStorage.getItem('admissionApplications')) || [];
+        this.generateCSRFToken();
+        this.generateCaptcha();
+      }
+
+      // 1. CSRF Protection
+      generateCSRFToken() {
+        const token = this.generateRandomString(32);
+        document.getElementById('csrfToken').value = token;
+        sessionStorage.setItem('csrfToken', token);
+      }
+
+      // 2. Input Validation & Sanitization
+      sanitizeInput(input) {
+        return input.replace(/[<>]/g, '').trim();
+      }
+
+      validateEmail(email) {
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+        return emailRegex.test(email);
+      }
+
+      validatePhone(phone) {
+        const phoneRegex = /^[0-9]{10}$/;
+        return phoneRegex.test(phone);
+      }
+
+      // 3. CAPTCHA Implementation
+      generateCaptcha() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let captcha = '';
+        for (let i = 0; i < 6; i++) {
+          captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        document.getElementById('captchaText').textContent = captcha;
+        sessionStorage.setItem('captcha', captcha);
+      }
+
+      validateCaptcha(input) {
+        const storedCaptcha = sessionStorage.getItem('captcha');
+        return input === storedCaptcha;
+      }
+
+      // 4. Rate Limiting
+      checkRateLimit() {
+        const lastSubmission = localStorage.getItem('lastSubmission');
+        if (lastSubmission) {
+          const timeDiff = Date.now() - parseInt(lastSubmission);
+          if (timeDiff < 30000) { // 30 seconds cooldown
+            return false;
+          }
+        }
+        return true;
+      }
+
+      // 5. Secure Storage
+      storeApplication(data) {
+        const application = {
+          id: this.generateRandomString(16),
+          timestamp: new Date().toISOString(),
+          data: data,
+          status: 'pending',
+          ip: this.getClientIP()
+        };
+        
+        this.applications.push(application);
+        localStorage.setItem('admissionApplications', JSON.stringify(this.applications));
+        localStorage.setItem('lastSubmission', Date.now().toString());
+        
+        return application.id;
+      }
+
+      // 6. XSS Prevention
+      escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      // Utility Methods
+      generateRandomString(length) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+          result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+      }
+
+      getClientIP() {
+        // In real implementation, this would come from server-side
+        return 'user_' + this.generateRandomString(8);
+      }
+    }
+
+    // Initialize Security
+    const security = new AdmissionSecurity();
+
+    // Form Handling
+    document.getElementById('admissionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (!security.checkRateLimit()) {
+        alert('Please wait 30 seconds before submitting another application.');
+        return;
+      }
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      // Validate all fields
+      let isValid = true;
+
+      // Clear previous errors
+      document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+
+      // Validate required fields
+      const requiredFields = ['studentName', 'dob', 'grade', 'parentName', 'email', 'phone', 'address', 'captcha'];
+      requiredFields.forEach(field => {
+        const value = data[field];
+        if (!value || value.trim() === '') {
+          showError(field + 'Error', 'This field is required');
+          isValid = false;
+        }
+      });
+
+      // Validate email
+      if (data.email && !security.validateEmail(data.email)) {
+        showError('emailError', 'Please enter a valid email address');
+        isValid = false;
+      }
+
+      // Validate phone
+      if (data.phone && !security.validatePhone(data.phone)) {
+        showError('phoneError', 'Please enter a valid 10-digit phone number');
+        isValid = false;
+      }
+
+      // Validate CAPTCHA
+      if (data.captcha && !security.validateCaptcha(data.captcha)) {
+        showError('captchaError', 'Invalid security code');
+        isValid = false;
+      }
+
+      if (!isValid) {
+        security.generateCaptcha(); // Regenerate CAPTCHA on failure
+        return;
+      }
+
+      // Sanitize all inputs
+      Object.keys(data).forEach(key => {
+        data[key] = security.sanitizeInput(data[key]);
+      });
+
+      // Show loading spinner
+      document.getElementById('loadingSpinner').style.display = 'block';
+      document.getElementById('submitBtn').disabled = true;
+
+      // Simulate secure submission
+      setTimeout(() => {
+        const referenceId = security.storeApplication(data);
+        
+        // Show success message
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('referenceId').textContent = referenceId;
+        
+        // Show admin dashboard (in real scenario, this would be separate admin page)
+        document.getElementById('adminDashboard').style.display = 'block';
+        
+        // Reset form
+        document.getElementById('admissionForm').reset();
+        security.generateCaptcha();
+        security.generateCSRFToken();
+        
+        // Re-enable submit button after 5 seconds
+        setTimeout(() => {
+          document.getElementById('submitBtn').disabled = false;
+        }, 5000);
+      }, 2000);
+    });
+
+    function showError(elementId, message) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.style.display = 'block';
+    }
+
+    // Real-time validation
+    document.querySelectorAll('input, select, textarea').forEach(element => {
+      element.addEventListener('blur', function() {
+        const value = this.value.trim();
+        const name = this.name;
+        
+        if (this.hasAttribute('required') && !value) {
+          showError(name + 'Error', 'This field is required');
+        } else if (name === 'email' && value && !security.validateEmail(value)) {
+          showError('emailError', 'Please enter a valid email address');
+        } else if (name === 'phone' && value && !security.validatePhone(value)) {
+          showError('phoneError', 'Please enter a valid 10-digit phone number');
+        } else {
+          document.getElementById(name + 'Error').style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

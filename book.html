@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Selection & Download</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Poppins', sans-serif; background:#fff; padding:20px; color:#333; min-height:100vh; }
+
+.container { max-width:1200px; margin:0 auto; }
+.header { text-align:center; margin-bottom:20px; position:relative; }
+.back-home-btn { position:absolute; left:0; top:50%; transform:translateY(-50%);
+  background:#000; color:#fff; border:none; padding:12px 25px; border-radius:25px; font-weight:600;
+  cursor:pointer; transition:all 0.3s ease; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+}
+.back-home-btn:hover { background:#667eea; transform:translateY(-50%) translateX(-5px); }
+.back-home-btn::before { content:'←'; font-size:1.1rem; }
+.header h1 { font-size:2.5rem; margin-bottom:10px; color:#222; }
+.header p { color:#666; font-size:1.1rem; }
+
+/* Global Back Button */
+#globalBackBtn { display:none; text-align:center; margin-bottom:30px; }
+.back-btn { display:inline-flex; align-items:center; gap:8px; background:#666; color:#fff; padding:12px 25px;
+  border-radius:25px; font-weight:600; text-decoration:none; transition:all 0.3s ease; border:none; cursor:pointer;
+}
+.back-btn:hover { background:#333; transform:translateX(-5px); }
+.back-btn::before { content:'←'; font-size:1.1rem; }
+
+/* Class Selection */
+.class-selection { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:15px; margin-bottom:40px; }
+.class-btn { background:#000; color:#fff; border:none; padding:15px 10px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.3s ease; text-align:center; font-size:1rem; }
+.class-btn:hover { background:#333; transform:translateY(-2px); }
+.class-btn.active { background:linear-gradient(135deg,#667eea 0%,#764ba2 100%); box-shadow:0 5px 15px rgba(102,126,234,0.3); }
+
+/* Subject Selection */
+.subject-section { display:none; margin-bottom:30px; }
+.subject-section.active { display:block; animation:fadeIn 0.5s ease; }
+.subject-title { font-size:1.8rem; margin-bottom:20px; text-align:center; color:#222; }
+.subject-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+.subject-card { background:#000; color:#fff; padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.1); transition:transform 0.3s,box-shadow 0.3s; text-align:center; position:relative; overflow:hidden; }
+.subject-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg,#667eea,#764ba2); }
+.subject-card:hover { transform:translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.2); }
+.subject-card h3 { margin-bottom:15px; font-size:1.3rem; color:#fff; }
+.subject-card p { color:#ccc; margin-bottom:15px; font-size:0.9rem; line-height:1.4; }
+.download-btn { display:inline-block; background:#fff; color:#000; padding:10px 25px; border-radius:25px; font-weight:600; text-decoration:none; transition:all 0.3s ease; border:none; cursor:pointer; width:100%; font-size:0.9rem; }
+.download-btn:hover { background:#667eea; color:#fff; transform:translateY(-2px); }
+
+@keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+@media (max-width:768px) { .class-selection { grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); } }
+@media (max-width:480px) { .subject-grid { grid-template-columns:1fr; } .class-selection { grid-template-columns:repeat(3,1fr); } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <a href="index.html" class="back-home-btn">Back to Home</a>
+    <h1>Book Selection & Download</h1>
+    <p>Select your class and download subject books</p>
+  </div>
+
+  <!-- Global Back Button -->
+  <div id="globalBackBtn">
+    <button class="back-btn" onclick="showClassSelection()">Back to Classes</button>
+  </div>
+
+  <!-- Class Selection -->
+  <div class="class-selection" id="classSelection">
+    <button class="class-btn" data-class="lkg">LKG</button>
+    <button class="class-btn" data-class="ukg">UKG</button>
+    <button class="class-btn" data-class="1">Class 1</button>
+    <button class="class-btn" data-class="2">Class 2</button>
+    <button class="class-btn" data-class="3">Class 3</button>
+    <button class="class-btn" data-class="4">Class 4</button>
+    <button class="class-btn" data-class="5">Class 5</button>
+    <button class="class-btn" data-class="6">Class 6</button>
+    <button class="class-btn" data-class="7">Class 7</button>
+    <button class="class-btn" data-class="8">Class 8</button>
+    <button class="class-btn" data-class="9">Class 9</button>
+    <button class="class-btn" data-class="10">Class 10</button>
+    <button class="class-btn" data-class="11">Class 11</button>
+    <button class="class-btn" data-class="12">Class 12</button>
+  </div>
+
+  <!-- Subject Sections -->
+  <div id="subjectSections">
+
+    <!-- Middle School: 6-8 -->
+    <div class="subject-section" id="middle-subjects">
+      <h2 class="subject-title" id="middle-title">Class 6 - Select Subject</h2>
+      <div class="subject-grid">
+        <div class="subject-card"><h3>English</h3><p>Advanced grammar & literature</p><button class="download-btn" onclick="downloadBook('Middle English Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Mathematics</h3><p>Algebra, geometry</p><button class="download-btn" onclick="downloadBook('Middle Mathematics Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Science</h3><p>Physics, Chemistry, Biology</p><button class="download-btn" onclick="downloadBook('Middle Science Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Social Science</h3><p>History, Geography, Civics</p><button class="download-btn" onclick="downloadBook('Middle Social Science Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Hindi</h3><p>Language & literature</p><button class="download-btn" onclick="downloadBook('Middle Hindi Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Sanskrit</h3><p>Classical language studies</p><button class="download-btn" onclick="downloadBook('Middle Sanskrit Book')">Download PDF</button></div>
+      </div>
+    </div>
+
+    <!-- Secondary School: 9-12 -->
+    <div class="subject-section" id="secondary-subjects">
+      <h2 class="subject-title" id="secondary-title">Class 9 - Select Subject</h2>
+      <div class="subject-grid">
+        <div class="subject-card"><h3>English</h3><p>Literature & advanced writing</p><button class="download-btn" onclick="downloadBook('Secondary English Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Mathematics</h3><p>Advanced algebra, calculus</p><button class="download-btn" onclick="downloadBook('Secondary Mathematics Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Physics</h3><p>Mechanics, optics, modern physics</p><button class="download-btn" onclick="downloadBook('Secondary Physics Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Chemistry</h3><p>Organic, inorganic, physical</p><button class="download-btn" onclick="downloadBook('Secondary Chemistry Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Biology</h3><p>Botany, Zoology, Human Biology</p><button class="download-btn" onclick="downloadBook('Secondary Biology Book')">Download PDF</button></div>
+        <div class="subject-card"><h3>Computer Science</h3><p>Programming & algorithms</p><button class="download-btn" onclick="downloadBook('Secondary Computer Science Book')">Download PDF</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.class-btn').forEach(button=>{
+  button.addEventListener('click',function(){
+    const selectedClass=this.getAttribute('data-class'); showSubjects(selectedClass);
+  });
+});
+
+function showSubjects(className){
+  document.getElementById('classSelection').style.display='none';
+  document.querySelectorAll('.subject-section').forEach(section=>section.classList.remove('active'));
+  document.getElementById('globalBackBtn').style.display='block';
+
+  let subjectSection, titleElement;
+  if(['6','7','8'].includes(className)){
+    subjectSection=document.getElementById('middle-subjects');
+    titleElement=document.getElementById('middle-title');
+    titleElement.textContent=`Class ${className} - Select Subject`;
+  }
+  else if(['9','10','11','12'].includes(className)){
+    subjectSection=document.getElementById('secondary-subjects');
+    titleElement=document.getElementById('secondary-title');
+    titleElement.textContent=`Class ${className} - Select Subject`;
+  }
+  if(subjectSection) subjectSection.classList.add('active');
+}
+
+function showClassSelection(){
+  document.getElementById('classSelection').style.display='grid';
+  document.querySelectorAll('.subject-section').forEach(section=>section.classList.remove('active'));
+  document.getElementById('globalBackBtn').style.display='none';
+}
+
+function downloadBook(bookName){
+  alert(`Downloading: ${bookName}\n(In real app, starts PDF download)`);
+  console.log(`Download initiated: ${bookName}`);
+}
+</script>
+
+</body>
+</html>
+

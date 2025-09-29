@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Mandatory Documents - Ishath Educational Institution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            flex: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .documents-section {
+            background: #111111;
+            border-radius: 20px;
+            padding: 70px 50px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            border: 1px solid #222222;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+        
+        .section-description {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .document-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .document-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+        }
+        
+        .document-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #9b59b6, #e74c3c);
+        }
+        
+        .document-card:nth-child(3)::before {
+            background: linear-gradient(90deg, #f39c12, #3498db);
+        }
+        
+        .document-card:nth-child(4)::before {
+            background: linear-gradient(90deg, #1abc9c, #9b59b6);
+        }
+        
+        .document-card:nth-child(5)::before {
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+        }
+        
+        .document-card:nth-child(6)::before {
+            background: linear-gradient(90deg, #2ecc71, #3498db);
+        }
+        
+        .document-card:nth-child(7)::before {
+            background: linear-gradient(90deg, #9b59b6, #1abc9c);
+        }
+        
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: #444444;
+        }
+        
+        .document-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            height: 70px;
+            width: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #2a2a2a;
+        }
+        
+        .document-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .document-description {
+            font-size: 1rem;
+            color: #aaaaaa;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .document-details {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .document-details li {
+            margin-bottom: 10px;
+            color: #cccccc;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .document-details i {
+            margin-right: 10px;
+            color: #888888;
+            margin-top: 4px;
+        }
+        
+        .document-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .document-button {
+            background: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #444444;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .document-button.primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: none;
+        }
+        
+        .document-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-section {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 50px;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .info-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #ffffff;
+            text-align: center;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+        
+        .info-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+            color: #cccccc;
+        }
+        
+        .deadline-box {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 40px;
+            border: 1px solid #444444;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .deadline-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(52, 152, 219, 0.1));
+        }
+        
+        .deadline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .deadline-date {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .deadline-description {
+            font-size: 1rem;
+            color: #cccccc;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: #0a0a0a;
+            border-top: 1px solid #222222;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
+        
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-description {
+            color: #aaaaaa;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #ffffff;
+            position: relative;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #ffffff, #888888);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a:hover {
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+        
+        .footer-links i {
+            margin-right: 10px;
+            font-size: 0.9rem;
+            width: 16px;
+            text-align: center;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            color: #aaaaaa;
+        }
+        
+        .contact-info i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            margin-top: 2px;
+            color: #cccccc;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            color: #cccccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .social-link:hover {
+            background: #2a2a2a;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            padding: 25px 20px 0;
+            border-top: 1px solid #222222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .copyright {
+            color: #777777;
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .footer-bottom-links a {
+            color: #777777;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-bottom-links a:hover {
+            color: #cccccc;
+        }
+        
+        .back-to-top {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            color: #cccccc;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top:hover {
+            background: #2a2a2a;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+        
+        .accent-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            margin: 0 10px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .documents-section {
+                padding: 50px 30px;
+            }
+            
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .document-actions {
+                flex-direction: column;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ishath Educational Institution</h1>
+            <p class="subtitle">CBSE Mandatory Documents 2025 - Compliance & Certification</p>
+        </header>
+        
+        <section class="documents-section">
+            <h2 class="section-title">CBSE Mandatory Documents</h2>
+            <p class="section-description">All required CBSE compliance documents, certificates, and affiliations for the academic year 2025-26.</p>
+            
+            <div class="documents-grid">
+                <div class="document-card">
+                    <div class="document-icon">
+                        <i class="fas fa-file-certificate"></i>
+                    </div>
+                    <h3 class="document-title">Certificate of Affiliation</h3>
+                    <p class="document-description">Official CBSE affiliation certificate with details of affiliation period and institution status.</p>
+                    <ul class="document-details">
+                        <li><i class="fas fa-hashtag"></i> Affiliation No: 930451</li>
+                        <li><i class="fas fa-calendar"></i> Valid Until: March 31, 2026</li>
+                        <li><i class="fas fa-school"></i> Status: Senior Secondary</li>
+                    </ul>
+                    <div class="document-actions">
+                        <a href="Certificate of Affiliation.pdf" class="document-button primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="Certificate of Affiliation.pdf" class="document-button" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="document-title">Building Safety Certificate</h3>
+                    <p class="document-description">Fitness certificate for school buildings issued by Assistant Engineer for 2025-26.</p>
+                    <ul class="document-details">
+                        <li><i class="fas fa-check-circle"></i> Inspection Date: Feb 3, 2025</li>
+                        <li><i class="fas fa-ruler-combined"></i> Area: 11,250 sq. meters</li>
+                        <li><i class="fas fa-home"></i> Structure: RCC Building</li>
+                    </ul>
+                    <div class="document-actions">
+                        <a href="Building Safety Certificate.pdf" class="document-button primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="Building Safety Certificate.pdf" class="document-button" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3 class="document-title">Land Certificate</h3>
+                    <p class="document-description">Certification of land ownership and details for CBSE affiliation purposes.</p>
+                    <ul class="document-details">
+                        <li><i class="fas fa-map-marker-alt"></i> Location: Unnikulam, Poonoor</li>
+                        <li><i class="fas fa-expand-arrows-alt"></i> Area: 11,250 sq. meters</li>
+                        <li><i class="fas fa-file-contract"></i> Document No: 4470/2000, etc.</li>
+                    </ul>
+                    <div class="document-actions">
+                        <a href="Land Certificate .pdf" class="document-button primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="Land Certificate .pdf" class="document-button" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3 class="document-title">Formal Recognition Letter</h3>
+                    <p class="document-description">State government recognition letter for CBSE affiliation extension.</p>
+                    <ul class="document-details">
+                        <li><i class="fas fa-university"></i> Issued By: Deputy Director of Education</li>
+                        <li><i class="fas fa-calendar"></i> Date: July 27, 2025</li>
+                        <li><i class="fas fa-graduation-cap"></i> Level: Classes I to X</li>
+                    </ul>
+                    <div class="document-actions">
+                        <a href="FORMAL PRIOR RECOGNITION LETTER (RTE 2008).pdf" class="document-button primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="FORMAL PRIOR RECOGNITION LETTER (RTE 2008).pdf" class="document-button" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-icon">
+                        <i class="fas fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="document-title">Non-Proprietary Affidavit</h3>
+                    <p class="document-description">Legal affidavit confirming non-proprietary status of the institution.</p>
+                    <ul class="document-details">
+                        <li><i class="fas fa-stamp"></i> e-Stamp: ₹100</li>
+                        <li><i class="fas fa-id-card"></i> Affiant: Abdul Nazir Saqafi</li>
+                        <li><i class="fas fa-sitemap"></i> Organization: Islamic Organisation</li>
+                    </ul>
+                    <div class="document-actions">
+                        <a href="Non Proprietary Affidavit.pdf" class="document-button primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="Non Proprietary Affidavit.pdf" class="document-button" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="document-title">PTA Committee</h3>
+                    <p class="document-description">Parent-Teacher Association executive committee members for 2024-25.</p>
+                    <ul class="document-details">
+                        <li><i class="fas fa-user-tie"></i> President: Moosakkoya</li>
+                        <li><i class="fas fa-user-friends"></i> Members: 28 Executives</li>
+                        <li><i class="fas fa-phone"></i> Contact: 9496726887</li>
+                    </ul>
+                    <div class="document-actions">
+                        <a href="PTA COMMITTEE.pdf" class="document-button primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="PTA COMMITTEE.pdf" class="document-button" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="document-title">Teacher Recruitment</h3>
+                    <p class="document-description">Details of required qualified teaching positions for academic year 2025-26.</p>
+                    <ul class="document-details">
+                        <li><i class="fas fa-briefcase"></i> Positions: 5 Vacancies</li>
+                        <li><i class="fas fa-envelope"></i> Email: ipspoonoor@gmail.com</li>
+                        <li><i class="fas fa-globe"></i> Website: www.ipspoonoor.co.in</li>
+                    </ul>
+                    <div class="document-actions">
+                        <a href="Required qualified teachers - 2025-26.pdf" class="document-button primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="Required qualified teachers - 2025-26.pdf" class="document-button" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3 class="info-title">Institution Overview</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="info-label">Year Established</div>
+                        <div class="info-value">1994</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="info-label">Affiliation Since</div>
+                        <div class="info-value">2003</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="info-label">Campus Area</div>
+                        <div class="info-value">11,250 sq. meters</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="info-label">School Status</div>
+                        <div class="info-value">Senior Secondary</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="deadline-box">
+                <h3 class="deadline-title">Important Notice</h3>
+                <div class="deadline-date">All documents are valid for Academic Year 2025-26</div>
+                <p class="deadline-description">These documents are mandatory for CBSE compliance and institutional operations.</p>
+            </div>
+        </section>
+    </div>
